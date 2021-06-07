@@ -1,21 +1,56 @@
-#define _07_図形
+#define _13_弾
 
 
 #ifdef _13_弾
 #include"libOne.h"
 void gmain() {
 	window(1920, 1080, full);
-	float px = 1920 / 2;
-	float py = 1000;
-	float vx = 10;
-	float bvy = 50;
+	const int numBullets[10];
+
+	for (int i = 0; i < numBullets; i++) {
+		float px = 1920 / 2;
+		float py = 1000;
+		float vx = 30;
+		float bvx = 30;
+		float bvy = 30;
+		float bx = 1920 / 2;
+		float by = 1000;
+		int bhp = 0;
+	}
 
 	while (notQuit) {
 		clear(0);
 		rectMode(CENTER);
-		if (isPress(KEY_A)) { px -= vx; }
-		if (isPress(KEY_D)) { px += vx; }
-		rect(px, py, 100, 100);
+		if (isPress(KEY_A) && px > 50) {
+			px -= vx;
+		}
+		if (isPress(KEY_D) && px < 1870) {
+			px += vx;
+		}
+		if (isTrigger(KEY_SPACE)) {
+			for (int i = 0; i < numBullets; i++) {
+				if (bhp == 0) {
+					bhp = 1;
+					bx = px;
+					by = py - 50;
+				}
+			}
+		}
+		for (int i = 0; i < numBullets; i++) {
+			if (bhp > 0) {
+				by -= bvy;
+				//ウィンドウの外に出たらHPを0にする
+				if (by < -50) {
+					bhp = 0;
+				}
+			}
+		}
+		rect(px, py, 100, 100);//プレイヤー
+		if (bhp > 0) {
+			for (int i = 0; i < numBullets; i++) {
+				rect(bx, by, 20, 20);//弾
+			}
+		}
 	}
 }
 
