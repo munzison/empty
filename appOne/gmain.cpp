@@ -1,58 +1,86 @@
-#define _13_弾
+#define _14_SORT
 
+
+#ifdef _14_SORT
+#include"libOne.h"
+void gmain() {
+	window(1100, 1000, full);
+	const int num = 20;
+	int score[num];
+	for (int i = 0; i < num; i++) {
+		score[i] = random() % 101;
+	}
+	while (notQuit) {
+		clear(60);
+	}
+}
+#endif
 
 #ifdef _13_弾
 #include"libOne.h"
 void gmain() {
 	window(1920, 1080, full);
-	const int numBullets[10];
-
+	struct PLAYER {
+		float px, py, w, h, vx, ofsY;
+	};
+	struct BULLET {
+		float px, py, w, h, vy;
+		int hp = 0;
+	};
+	//データ
+	struct PLAYER p;
+	p.px = 1920 / 2;
+	p.py = 1000;
+	p.w = 100;
+	p.h = 100;
+	p.vx = 30;
+	p.ofsY = 50;
+	const int numBullets = 10;
+	struct BULLET b[numBullets];
 	for (int i = 0; i < numBullets; i++) {
-		float px = 1920 / 2;
-		float py = 1000;
-		float vx = 30;
-		float bvx = 30;
-		float bvy = 30;
-		float bx = 1920 / 2;
-		float by = 1000;
-		int bhp = 0;
+		b[i].px = p.px;
+		b[i].py = p.py;
+		b[i].w = 20;
+		b[i].h = 20;
+		b[i].vy = 10;
 	}
-
 	while (notQuit) {
 		clear(0);
 		rectMode(CENTER);
-		if (isPress(KEY_A) && px > 50) {
-			px -= vx;
+		if (isPress(KEY_A) && p.px > 50) {//左に移動
+			p.px -= p.vx;
 		}
-		if (isPress(KEY_D) && px < 1870) {
-			px += vx;
+		if (isPress(KEY_D) && p.px < 1870) {//右に移動
+			p.px += p.vx;
 		}
-		if (isTrigger(KEY_SPACE)) {
-			for (int i = 0; i < numBullets; i++) {
-				if (bhp == 0) {
-					bhp = 1;
-					bx = px;
-					by = py - 50;
+		if (isTrigger(KEY_SPACE)) {//弾を発射
+			for (int i = 0; i < numBullets; i++){
+				if (b[i].hp == 0) {
+					b[i].hp = 1;
+					b[i].px = p.px;
+					b[i].py = p.py - p.ofsY;
+					i = numBullets;
 				}
 			}
 		}
 		for (int i = 0; i < numBullets; i++) {
-			if (bhp > 0) {
-				by -= bvy;
+			if (b[i].hp > 0) {
+				b[i].py -= b[i].vy;
 				//ウィンドウの外に出たらHPを0にする
-				if (by < -50) {
-					bhp = 0;
+				if (b[i].py < -p.ofsY) {
+					b[i].hp = 0;
 				}
 			}
 		}
-		rect(px, py, 100, 100);//プレイヤー
-		if (bhp > 0) {
-			for (int i = 0; i < numBullets; i++) {
-				rect(bx, by, 20, 20);//弾
+		rect(p.px, p.py, p.w, p.h);//プレイヤー
+		for (int i = 0; i < numBullets; i++) {
+			if (b[i].hp > 0) {
+				rect(b[i].px, b[i].py, b[i].w, b[i].h);//弾
 			}
 		}
 	}
 }
+
 
 #endif
 #ifdef _10_FACE
