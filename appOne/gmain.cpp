@@ -1,21 +1,80 @@
-#define _14_SORT
+#define _15_HSV
 
 
-#ifdef _14_SORT
+
+#ifdef _15_HSV
 #include"libOne.h"
 void gmain() {
-	window(1100, 1000, full);
-	const int num = 20;
-	int score[num];
-	for (int i = 0; i < num; i++) {
-		score[i] = random() % 101;
-	}
+	window(1920, 1080,full);
+	colorMode(HSV);
+	angleMode(DEGREES);
+	float hue = 0;      //Šp“x
+	float satu = 255;   //‘N‚â‚©‚³
+	float value = 255;  //–¾‚é‚³
 	while (notQuit) {
-		clear(60);
+		if (isPress(KEY_Q)&&hue<360) { hue += 5; }
+		if (isPress(KEY_W)&&hue>0) { hue -= 5; }
+		if (isTrigger(KEY_A) && hue < 360) { hue += 5; }
+		if (isTrigger(KEY_S) && hue > 0) { hue -= 5; }
+		if (isPress(KEY_E) && satu < 360) { satu += 5; }
+		if (isPress(KEY_R) && satu > 0) { satu -= 5; }
+		if (isPress(KEY_D) && value < 360) { value += 5; }
+		if (isPress(KEY_F) && value > 0) { value -= 5; }
+
+		clear(0, 0, 0);
+		fill(hue, satu, value);
+		textSize(120);
+		text((let)"hue=" + hue, 600, 400);
+		text((let)"satu=" + satu, 600, 600);
+		text((let)"value=" + value, 600, 800);
+		
+		int num = 128;
+		float angle = hue / num;
+		for (int i = 0; i < num; i++) {
+			float px = cos(angle * i) * 200;
+			float py = -sin(angle * i) * 200;
+			fill(angle*i, satu, value);
+			noStroke();
+			circle(1500 + px, 540 + py, 50);
+		}
 	}
 }
 #endif
-
+#ifdef _14_SORT
+#include"libOne.h"
+void gmain() {
+	window(1100, 1000);
+	const int num = 14;
+	int score[num];
+	int r, c; //r=Šî€‚Æ‚È‚é“Y‚¦Žš c=”äŠr‘ÎÛ‚Æ‚È‚é“Y‚¦Žš
+	for (int i = 0; i < num; i++) {
+		score[i] = random() % 9;
+	}
+	while (notQuit) {
+		clear(60);
+		if (isTrigger(KEY_A)) {               //A‚ð‰Ÿ‚·‚Æƒ‰ƒ“ƒ_ƒ€‚È’l‚ð•\Ž¦
+			for (int i = 0; i < num; i++) {
+				score[i] = random() % 9;
+			}
+		}
+		if (isTrigger(KEY_D)) {               //D‚ð‰Ÿ‚·‚Æ’l‚ð•À‚Ñ•Ï‚¦‚é
+			for (r = 0; r < num - 1; r++) {
+				for (c = r + 1; c < num; c++) {
+					if (score[r] < score[c]) {
+						int w = score[r];
+						score[r] = score[c];
+						score[c] = w;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < num; i++) {
+			print(score[i]);
+			rect(100, 50 * i, score[i], 40);
+		}
+	}
+}
+#endif
 #ifdef _13_’e
 #include"libOne.h"
 void gmain() {
