@@ -1,5 +1,79 @@
-#define _15_HSV
+#define _16
 
+#ifdef _16
+/*
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+
+	let area = 4;    //面積
+	let renght = 0;  //一辺の長さ
+
+	while (notQuit) {
+		clear(200);
+
+		if (isTrigger(KEY_D)) { ++area; }
+		if (isTrigger(KEY_A)) { --area; }
+
+		renght = sqrt(area);  //sqrt = √(ルート)   平方根...square root(スクエアルート)
+		mathAxis(4.1);
+
+		fill(0, 0, 255, 128);
+		mathRect(0, 0, renght, -renght);
+
+		textSize(50);
+		text("面積 =" + area, 0, 60);
+		text("√" + area + " = " + renght, 0, 120);
+	}
+}
+*/
+/*
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	let a, b, c;
+	while (notQuit) {
+		clear(200);
+
+		a = mathMouseX;
+		b = mathMouseY;
+		c = sqrt(a * a + b * b);
+
+		mathAxis(4.1);
+		stroke(0, 0, 250);
+
+		mathLine(0, 0, a, b);  //斜辺
+		mathLine(0, 0, a, 0);  //底辺
+		mathLine(a, 0, a, b);  //高さ
+
+		textSize(50);
+		text("底辺=" + a, 0, 60);
+		text("高さ=" + b, 0, 120);
+		text("斜辺=" + c, 0, 180);
+	}
+}
+*/
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	struct CIRCLE {
+		float x, y, r;  //半径...radius(ラディアス)
+	};
+	struct CIRCLE c1, c2;
+	c1.x = 500;
+	c1.y = 500;
+	c1.r = 100;
+	c2.x = mathMouseX;
+	c2.y = mathMouseY;
+	c2.r = 100;
+	while (notQuit) {
+		clear(140);
+		circle(c1.x, c1.y, c1.r * 2);
+		circle(c2.x, c2.y, c2.r * 2);
+
+	}
+}
+#endif
 
 
 #ifdef _15_HSV
@@ -27,8 +101,9 @@ void gmain() {
 		text((let)"hue=" + hue, 600, 400);
 		text((let)"satu=" + satu, 600, 600);
 		text((let)"value=" + value, 600, 800);
-		
-		int num = 128;
+		//text((let)"Gameing" + hue, 600, 1000);
+
+		int num = 12;
 		float angle = hue / num;
 		for (int i = 0; i < num; i++) {
 			float px = cos(angle * i) * 200;
@@ -44,17 +119,17 @@ void gmain() {
 #include"libOne.h"
 void gmain() {
 	window(1100, 1000);
-	const int num = 14;
+	const int num = 20;
 	int score[num];
 	int r, c; //r=基準となる添え字 c=比較対象となる添え字
 	for (int i = 0; i < num; i++) {
-		score[i] = random() % 9;
+		score[i] = random() % 1001;
 	}
 	while (notQuit) {
 		clear(60);
 		if (isTrigger(KEY_A)) {               //Aを押すとランダムな値を表示
 			for (int i = 0; i < num; i++) {
-				score[i] = random() % 9;
+				score[i] = random() % 1001;
 			}
 		}
 		if (isTrigger(KEY_D)) {               //Dを押すと値を並び変える
