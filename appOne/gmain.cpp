@@ -1,33 +1,42 @@
-#define _16
+#define _円の当たり判定
 
-#ifdef _16
-/*
+#ifdef _円の当たり判定
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
-
-	let area = 4;    //面積
-	let renght = 0;  //一辺の長さ
-
+	struct CIRCLE {
+		float x, y, r;  //半径...radius(ラディアス)
+	};
+	struct CIRCLE c1, c2;
+	c1.x = width / 2;
+	c1.y = height / 2;
+	c1.r = 100;
+	c2.x = 0;
+	c2.y = 0;
+	c2.r = 100;
 	while (notQuit) {
-		clear(200);
+		clear(140);
+		c2.x = mouseX;
+		c2.y = mouseY;
+		float a = c1.x - c2.x;
+		float b = c1.y - c2.y;
+		float c = sqrt(a * a + b * b);
+		if (c <= c1.r + c2.r) {
+			fill(200, 0, 0, 128);
+		}
+		else fill(0, 100, 0);
 
-		if (isTrigger(KEY_D)) { ++area; }
-		if (isTrigger(KEY_A)) { --area; }
-
-		renght = sqrt(area);  //sqrt = √(ルート)   平方根...square root(スクエアルート)
-		mathAxis(4.1);
-
-		fill(0, 0, 255, 128);
-		mathRect(0, 0, renght, -renght);
-
-		textSize(50);
-		text("面積 =" + area, 0, 60);
-		text("√" + area + " = " + renght, 0, 120);
+		textSize(60);
+		text(c, 0, 60);
+		circle(c1.x, c1.y, c1.r * 2);
+		circle(c2.x, c2.y, c2.r * 2);
+		line(c1.x, c1.y, c2.x, c2.y);  //c
+		line(c1.x, c1.y, c2.x, c1.y);  //a
+		line(c2.x, c2.y, c2.x, c1.y);  //b
 	}
 }
-*/
-/*
+#endif
+#ifdef _三平方の定理
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
@@ -52,30 +61,33 @@ void gmain() {
 		text("斜辺=" + c, 0, 180);
 	}
 }
-*/
+#endif
+#ifdef _ルート
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
-	struct CIRCLE {
-		float x, y, r;  //半径...radius(ラディアス)
-	};
-	struct CIRCLE c1, c2;
-	c1.x = 500;
-	c1.y = 500;
-	c1.r = 100;
-	c2.x = mathMouseX;
-	c2.y = mathMouseY;
-	c2.r = 100;
-	while (notQuit) {
-		clear(140);
-		circle(c1.x, c1.y, c1.r * 2);
-		circle(c2.x, c2.y, c2.r * 2);
 
+	let area = 4;    //面積
+	let renght = 0;  //一辺の長さ
+
+	while (notQuit) {
+		clear(200);
+
+		if (isTrigger(KEY_D)) { ++area; }
+		if (isTrigger(KEY_A)) { --area; }
+
+		renght = sqrt(area);  //sqrt = √(ルート)   平方根...square root(スクエアルート)
+		mathAxis(4.1);
+
+		fill(0, 0, 255, 128);
+		mathRect(0, 0, renght, -renght);
+
+		textSize(50);
+		text("面積 =" + area, 0, 60);
+		text("√" + area + " = " + renght, 0, 120);
 	}
 }
 #endif
-
-
 #ifdef _15_HSV
 #include"libOne.h"
 void gmain() {
