@@ -1,5 +1,78 @@
-#define _‰~‚Ì“–‚½‚è”»’è
+#define _OŠpŠÖ”_03_Œv
 
+#ifdef _OŠpŠÖ”_03_Œv
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	let x, y, deg = 0;
+	angleMode(DEGREES);
+	while (notQuit) {
+		clear(200);
+		deg = 45;
+		x = cos(deg)*400;
+		y = sin(deg)*400;
+		strokeWeight(30);
+		line(500, 500, 500 + x, 500 + y);
+	}
+}
+#endif
+#ifdef _OŠpŠÖ”_02//sin,cos‚Ì“Á’¥
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	let x, y, deg = -360;
+	angleMode(DEGREES);
+    while (notQuit) {
+		if (deg > 360) {
+			deg = -360;
+			clear(0);
+		}
+		deg+=5;
+		x = cos(deg)*100;    //cos‚Í1‚©‚çn‚Ü‚é
+		y = sin(deg)*100;      //sin‚Í0‚©‚çn‚Ü‚é
+		mathAxis(360);  //x,y²‚ğ•\¦
+		strokeWeight(20);
+		stroke(0, 0, 200);
+		mathPoint(deg, y);
+		stroke(200, 0, 0);
+		mathPoint(deg, x);
+	}
+}
+#endif
+#ifdef _OŠpŠÖ”_01
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	let x, y, c, deg = 0;
+	angleMode(DEGREES);
+	while (notQuit) {
+		if (isPress(KEY_W)) { deg++; }
+		if (isPress(KEY_S)) { deg--; }
+		if (isTrigger(KEY_A)) { deg += 30; }
+		if (isTrigger(KEY_D)) { deg -= 30; }
+		x = cos(deg);
+		y = sin(deg);
+		c = sqrt(x * x + y * y);
+		clear(128);
+		mathAxis(1.2);  //x,y²‚ğ•\¦
+		textSize(40);
+		stroke(0,0,100);
+		strokeWeight(10);
+		mathLine(0, 0, x, y);
+		stroke(0, 100, 0);
+		mathLine(0, 0, x, 0);
+		stroke(100, 0, 0);
+		mathLine(x, 0, x, y);
+
+		fill(0, 100, 0);
+		text("’ê•Ó=cos(" + deg + ")=" + x, 0, 40);
+		fill(100, 0, 0);
+		text("‚‚³=sin(" + deg + ")=" + y, 0, 80);
+		fill(0, 0, 100);
+		text("Î•Ó(”¼Œa)="+c, 0, 120);
+	}
+}
+#endif
 #ifdef _‰~‚Ì“–‚½‚è”»’è
 #include"libOne.h"
 void gmain() {
