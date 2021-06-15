@@ -1,17 +1,75 @@
-#define _OŠpŠÖ”_03_Œv
-
-#ifdef _OŠpŠÖ”_03_Œv
+#define _OŠpŠÖ”_05
+#ifdef _OŠpŠÖ”_05
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
-	let x, y, deg = 0;
-	angleMode(DEGREES);
 	while (notQuit) {
+	}
+}
+#endif
+#ifdef _OŠpŠÖ”_04
+#include"libOne.h"
+int createtriangle() {
+	struct SHAPE_VERTEX vertices[3];
+	vertices[0].x = 0;
+	vertices[0].y = -1;
+	vertices[1].x = 1;
+	vertices[1].y = 1;
+	vertices[2].x = -1;
+	vertices[2].y = 1;
+	return createShape(vertices, 3); //3‚Â‚Ì’¸“_
+}
+void gmain() {
+	window(1000, 1000);
+	int idx = createtriangle();
+	float deg = 0;
+	while (notQuit) {
+		deg++;
 		clear(200);
-		deg = 45;
-		x = cos(deg)*400;
-		y = sin(deg)*400;
-		strokeWeight(30);
+		angleMode(DEGREES);
+		fill(0, 0, 100);
+		shape(idx, 500, 500, deg, 100); //•Ô‚è’lCxÀ•WCyÀ•WC‰ñ“]Šp“xCŠg‘å‚Ì’l
+	}
+}
+#endif
+#ifdef _OŠpŠÖ”_03_Œv
+#include"libOne.h"
+#include<time.h>
+void gmain() {
+	window(1000, 1000);
+	let x, y, deg = 0;
+	float second = 0; float minute = 0; float hour = 0;
+	angleMode(DEGREES);
+	time_t stdTime;
+	struct tm local;
+	while (notQuit) {
+		time(&stdTime);
+		localtime_s(&local, &stdTime);
+		second = local.tm_sec;
+		minute = local.tm_min;
+		hour = local.tm_hour;
+
+		//if (second >= 60) { minute++; second = 0; }
+		//if (minute >= 60) { hour++; minute = 0; }
+		//second += 20;
+		clear(200);
+		//j
+		deg = 30 * hour + 30 * minute / 60;
+		x = sin(deg) * 300;
+		y = -cos(deg) * 300;
+		strokeWeight(20);
+		line(500, 500, 500 + x, 500 + y);
+		//•ªj
+		deg = 6 * minute + 6 * second / 60;
+		x = sin(deg) * 400;
+		y = -cos(deg)*400;
+		strokeWeight(10);
+		line(500, 500, 500 + x, 500 + y);
+		//•bj
+		deg = 6 * second;
+		x = sin(deg) * 400;
+		y = -cos(deg) * 400;
+		strokeWeight(5);
 		line(500, 500, 500 + x, 500 + y);
 	}
 }
