@@ -1,15 +1,171 @@
-#define _三角関数_05
-#ifdef _三角関数_05
-#include"libOne.h"
-void gmain() {
-	window(1000, 1000);
-	while (notQuit) {
-	}
-}
-#endif
-#ifdef _三角関数_04
+#define _三角関数_07
+
+#ifdef _三角関数_07//ハート
 #include"libOne.h"
 int createtriangle() {
+	struct SHAPE_VERTEX vertices[3];
+	vertices[0].x = 0;
+	vertices[0].y = -1;
+	vertices[1].x = 1;
+	vertices[1].y = 1;
+	vertices[2].x = -1;
+	vertices[2].y = 1;
+	return createShape(vertices, 3); //3つの頂点
+}
+int createpolygon() {
+	//多角形のプログラム
+	const int NUM = 4;
+	struct SHAPE_VERTEX vertices[NUM];
+	float deg = 360.0f / NUM;
+	angleMode(DEGREES);
+	for (int i = 0; i < NUM; i++) {
+		vertices[i].x = sin(deg * i);
+		vertices[i].y = -cos(deg * i);
+	}
+	return createShape(vertices, NUM); //多角形の頂点
+}
+int createstar() {
+	//星のプログラム
+	const int NUM = 10;
+	struct SHAPE_VERTEX vertices[NUM];
+	float deg = 360.0f / NUM;
+	angleMode(DEGREES);
+	for (int i = 0; i < NUM; i++) {
+		float r = 0.5f + 0.5f * (i % 2);
+		vertices[i].x = sin(deg * i) * r;
+		vertices[i].y = cos(deg * i) * r;
+	}
+	return createShape(vertices, NUM); //多角形の頂点
+}
+int createheart() {
+	//ハートのプログラム
+	const int NUM = 60;
+	struct SHAPE_VERTEX vertices[NUM];
+	float deg = 360.0f / NUM;
+	angleMode(DEGREES);
+	for (int i = 0; i < NUM; i++) {
+		float t = deg * i;
+		vertices[i].x =
+			16 * pow(sin(t), 3);
+		vertices[i].y = -(
+			13 * cos(t) -
+			5 * cos(2 * t) -
+			2 * cos(3 * t) -
+			1 * cos(4 * t));
+
+	}
+	return createShape(vertices, NUM); //多角形の頂点
+}
+
+void gmain() {
+	window(1000, 1000);
+	int idx = createheart();
+	float deg = 0;
+	while (notQuit) {
+		//deg++;
+		clear(200);
+		angleMode(DEGREES);
+		fill(200, 0, 0);
+		shape(idx, 500, 500, deg, 20); //返り値，x座標，y座標，回転角度，拡大の値
+	}
+}
+
+#endif
+#ifdef _三角関数_06
+#include"libOne.h"
+int createtriangle() {
+	struct SHAPE_VERTEX vertices[3];
+	vertices[0].x = 0;
+	vertices[0].y = -1;
+	vertices[1].x = 1;
+	vertices[1].y = 1;
+	vertices[2].x = -1;
+	vertices[2].y = 1;
+	return createShape(vertices, 3); //3つの頂点
+}
+int createpolygon() {
+	//多角形のプログラム
+	const int NUM = 4;
+	struct SHAPE_VERTEX vertices[NUM];
+	float deg = 360.0f / NUM;
+	angleMode(DEGREES);
+	for (int i = 0; i < NUM; i++) {
+		vertices[i].x = sin(deg * i);
+		vertices[i].y = -cos(deg * i);
+	}
+	return createShape(vertices, NUM); //多角形の頂点
+}
+int createstar() {
+	//星のプログラム
+	const int NUM = 10;
+	struct SHAPE_VERTEX vertices[NUM];
+	float deg = 360.0f / NUM;
+	angleMode(DEGREES);
+	for (int i = 0; i < NUM; i++) {
+		float r = 0.5f + 0.5f * (i % 2);
+		vertices[i].x = sin(deg * i) * r;
+		vertices[i].y = cos(deg * i) * r;
+	}
+	return createShape(vertices, NUM); //多角形の頂点
+}
+
+void gmain() {
+	window(1000, 1000);
+	int idx = createstar();
+	float deg = 0;
+	while (notQuit) {
+		//deg++;
+		clear(200);
+		angleMode(DEGREES);
+		fill(0, 0, 100);
+		shape(idx, 500, 500, deg, 200); //返り値，x座標，y座標，回転角度，拡大の値
+	}
+}
+
+#endif
+#ifdef _三角関数_05//多角形
+#include"libOne.h"
+int createtriangle() {
+	struct SHAPE_VERTEX vertices[3];
+	vertices[0].x = 0;
+	vertices[0].y = -1;
+	vertices[1].x = 1;
+	vertices[1].y = 1;
+	vertices[2].x = -1;
+	vertices[2].y = 1;
+	return createShape(vertices, 3); //3つの頂点
+}
+int createpolygon() {
+	//多角形のプログラム
+	const int NUM = 3;
+	struct SHAPE_VERTEX vertices[NUM];
+	float deg = 360.0f / NUM;
+	angleMode(DEGREES);
+	for (int i = 0; i < NUM; i++) {
+		vertices[i].x = sin(deg * i);
+		vertices[i].y = -cos(deg * i);//0の頂点が上に来るようにする
+	}
+	return createShape(vertices, NUM); //多角形の頂点
+}
+
+void gmain() {
+	window(1000, 1000);
+	int idx = createpolygon();
+	float deg = 0;
+	while (notQuit) {
+		//deg++;
+		clear(200);
+		angleMode(DEGREES);
+		fill(0, 0, 100);
+		shape(idx, 500, 500, deg, 200); //返り値，x座標，y座標，回転角度，拡大の値
+	}
+}
+
+#endif
+#ifdef _三角関数_04//三角形
+#include"libOne.h"
+int createtriangle() {
+	//三角形のプログラム
 	struct SHAPE_VERTEX vertices[3];
 	vertices[0].x = 0;
 	vertices[0].y = -1;
@@ -85,7 +241,7 @@ void gmain() {
 			deg = -360;
 			clear(0);
 		}
-		deg+=5;
+		deg+=1;
 		x = cos(deg)*100;    //cosは1から始まる
 		y = sin(deg)*100;      //sinは0から始まる
 		mathAxis(360);  //x,y軸を表示
