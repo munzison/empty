@@ -1,5 +1,87 @@
-#define _三角関数_07
+#define _三角関数_09
+#ifdef _三角関数_09
+#include"libOne.h"
+void gmain(){
+	window(1000, 1000);
+	const int num = 8;
+	struct POS {
+		float x, y, z;
+	};
+	struct POS op [num]= {
+		-1,1,-1,
+		-1,-1,-1,
+		1,-1,-1,
+		1,1,-1,
+		-1,1,1,
+		-1,-1,1,
+		1,-1,1,
+		1,1,1,
+	};
+	struct POS p[num];
+	float deg = 0;
+	angleMode(DEGREES);
+	while (notQuit) {
+		float s = sin(deg);
+		float c = cos(deg);
+		deg++;
+		for (int i = 0; i < num; i++) {
 
+			//p[i].x = op[i].x * c + op[i].y * -s;
+			//p[i].y = op[i].y * s + op[i].x * c;
+
+			p[i].x = op[i].x;
+			p[i].y = op[i].y;
+			p[i].z = op[i].z + s;//奥行
+
+			p[i].z += 5;
+
+			p[i].x /= p[i].z;
+			p[i].y /= p[i].z;
+		}
+		clear(200);
+		mathAxis(1.2);
+		stroke(0, 0, 200);
+		strokeWeight(10);
+		for (int i = 0; i < 4; i++) {
+			int j = (i + 1) % 4;
+			mathPoint(p[i].x, p[i].y);
+			mathLine(p[i].x, p[i].y, p[j].x, p[j].y);
+			mathLine(p[i+4].x, p[i+4].y, p[j+4].x, p[j+4].y);
+			mathLine(p[i].x, p[i].y, p[i+4].x, p[i+4].y);
+
+
+
+		}
+	}
+}
+#endif
+#ifdef _三角関数_08//リサージュ曲線もどき
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	let x, y, deg = 0;
+	float ax = 7;//xの振幅数
+	float by = 15;//yの振幅数
+	angleMode(DEGREES);
+	while (notQuit) {
+		//if (deg > 360) {
+			//deg = -360;
+			//clear(200);
+		//}
+		//clear(200);
+		deg += 0.5;
+		x = cos(deg*ax);    //cosは1から始まる
+		y = sin(deg*by);      //sinは0から始まる
+		mathAxis(3);  //x,y軸を表示
+		strokeWeight(10);
+		stroke(0, 0, 200);
+		//mathPoint(deg, y);
+		stroke(0, 0, 200);
+		mathPoint(x, y);
+	}
+}
+
+#endif
 #ifdef _三角関数_07//ハート
 #include"libOne.h"
 int createtriangle() {
@@ -39,7 +121,7 @@ int createstar() {
 }
 int createheart() {
 	//ハートのプログラム
-	const int NUM = 60;
+	const int NUM = 100;
 	struct SHAPE_VERTEX vertices[NUM];
 	float deg = 360.0f / NUM;
 	angleMode(DEGREES);
@@ -52,7 +134,6 @@ int createheart() {
 			5 * cos(2 * t) -
 			2 * cos(3 * t) -
 			1 * cos(4 * t));
-
 	}
 	return createShape(vertices, NUM); //多角形の頂点
 }
@@ -241,13 +322,13 @@ void gmain() {
 			deg = -360;
 			clear(0);
 		}
-		deg+=1;
-		x = cos(deg)*100;    //cosは1から始まる
-		y = sin(deg)*100;      //sinは0から始まる
+		deg+=1;//角度を1ずつ足す
+		x = cos(deg)*100;    //cosは1から始まる   cosの半径*100
+		y = sin(deg) * 100;      //sinは0から始まる   sinの半径*100
 		mathAxis(360);  //x,y軸を表示
-		strokeWeight(20);
-		stroke(0, 0, 200);
-		mathPoint(deg, y);
+		strokeWeight(20);//線の大きさは20
+		stroke(0, 0, 200);//線の色
+		mathPoint(deg, y);//x座標は1ずつ増えていき，yには
 		stroke(200, 0, 0);
 		mathPoint(deg, x);
 	}
