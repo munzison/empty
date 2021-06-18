@@ -1,13 +1,92 @@
-#define _三角関数_09
-#ifdef _三角関数_09
+#define _三角関数_10
+#ifdef _三角関数_10
 #include"libOne.h"
+//頂点位置の構造体
+struct POS {
+	float x, y, z;
+};
+//ゲームメイン
+void gmain() {
+	window(1000, 1000);
+	//頂点の数
+	int numcorners = 8;
+	int numrings = numcorners / 2 + 1;
+	int num = numcorners * numrings;
+	float deg = 360.0f / numcorners;
+	angleMode(DEGREES);
+	//元の頂点位置
+	struct POS* op = new POS[num];
+	for (int j = 0; j < numrings; j++) {
+		float r = sin(deg * j);
+		float z = cos(deg * j);
+		for (int i = 0; i < numcorners; i++) {//頂点を用意する
+			int k = j * numcorners + i;
+			op[k].x = cos(deg * i);
+			op[k].y = sin(deg * i);
+			op[k].z = 1.0f - 2.0f/(numrings-1)*j;
+		}
+	}
+	//変更後の頂点位置の入れ物
+	struct POS* p = new POS[num];
+	//元の頂点位置を回転させる角度
+	deg = 0;
+	//このstateが0の時Y軸、1の時X軸回転する
+	int state = 0;
+	//メインループ
+	while (notQuit) {
+		//あらかじめsin,cosを計算しておく
+		float s = sin(deg);
+		float c = cos(deg);
+		deg++;
+		//stateの変更
+		if (deg > 360) {
+			deg = 0;
+			++state %= 2;
+		}
+		for (int i = 0; i < num; i++) {
+			if (state == 0) {
+				p[i].x = op[i].x * c + op[i].z * -s;
+				p[i].y = op[i].y;
+				p[i].z = op[i].x * s + op[i].z * c;
+			}
+			else {
+				p[i].x = op[i].x;
+				p[i].y = op[i].y * c + op[i].z * -s;
+				p[i].z = op[i].y * s + op[i].z * c;
+			}
+			p[i].z += 3;//奥行
+
+			p[i].x /= p[i].z;
+			p[i].y /= p[i].z;
+		}
+		clear(200);
+		mathAxis(1.2);
+		stroke(0, 0, 200);
+		strokeWeight(10);
+		for (int i = 0; i < num; i++) {
+			mathPoint(p[i].x, p[i].y);
+
+		}
+	}
+	delete[]op;
+	delete[]p;
+}
+
+#endif
+#ifdef _三角関数_09//立方体
+#include"libOne.h"
+//頂点位置の構造体
+struct POS {
+	float x, y, z;
+};
+//ゲームメイン
 void gmain(){
 	window(1000, 1000);
+	//頂点の数
 	const int num = 8;
-	struct POS {
-		float x, y, z;
-	};
-	struct POS op [num]= {
+	angleMode(DEGREES);
+	//元の頂点位置
+	struct POS op[num] = {
 		-1,1,-1,
 		-1,-1,-1,
 		1,-1,-1,
@@ -17,38 +96,51 @@ void gmain(){
 		1,-1,1,
 		1,1,1,
 	};
-	struct POS p[num];
+	//変更後の頂点位置の入れ物
+	struct POS p [num];
+	//元の頂点位置を回転させる角度
 	float deg = 0;
-	angleMode(DEGREES);
+	//このstateが0の時Y軸、1の時X軸回転する
+	int state = 0;
+	//メインループ
 	while (notQuit) {
+		//あらかじめsin,cosを計算しておく
 		float s = sin(deg);
 		float c = cos(deg);
 		deg++;
+		//stateの変更
+		if (deg > 360) {
+			deg = 0;
+			++state %= 2;
+		}
 		for (int i = 0; i < num; i++) {
-
-			//p[i].x = op[i].x * c + op[i].y * -s;
-			//p[i].y = op[i].y * s + op[i].x * c;
-
-			p[i].x = op[i].x;
-			p[i].y = op[i].y;
-			p[i].z = op[i].z + s;//奥行
-
-			p[i].z += 5;
+			if (state == 0) {
+				p[i].x = op[i].x * c + op[i].z * -s;
+				p[i].y = op[i].y;
+				p[i].z = op[i].x * s + op[i].z * c;
+			}
+			else {
+				p[i].x = op[i].x;
+				p[i].y = op[i].y * c + op[i].z * -s;
+				p[i].z = op[i].y * s + op[i].z * c;
+			}
+			p[i].z += 3;//奥行
 
 			p[i].x /= p[i].z;
 			p[i].y /= p[i].z;
 		}
 		clear(200);
-		mathAxis(1.2);
+		mathAxis(1.2);//クリア色と同じで軸は見えないが必要な命令
 		stroke(0, 0, 200);
 		strokeWeight(10);
 		for (int i = 0; i < 4; i++) {
 			int j = (i + 1) % 4;
-			mathPoint(p[i].x, p[i].y);
+			//手前の四角形の線
 			mathLine(p[i].x, p[i].y, p[j].x, p[j].y);
+			//奥の四角形の線
 			mathLine(p[i+4].x, p[i+4].y, p[j+4].x, p[j+4].y);
+			//前後を結ぶ線
 			mathLine(p[i].x, p[i].y, p[i+4].x, p[i+4].y);
-
 
 
 		}
