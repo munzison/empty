@@ -9,7 +9,7 @@ struct POS {
 void gmain() {
 	window(1000, 1000);
 	//頂点の数
-	int numcorners = 8;
+	int numcorners = 20;
 	int numrings = numcorners / 2 + 1;
 	int num = numcorners * numrings;
 	float deg = 360.0f / numcorners;
@@ -21,9 +21,9 @@ void gmain() {
 		float z = cos(deg * j);
 		for (int i = 0; i < numcorners; i++) {//頂点を用意する
 			int k = j * numcorners + i;
-			op[k].x = cos(deg * i);
-			op[k].y = sin(deg * i);
-			op[k].z = 1.0f - 2.0f/(numrings-1)*j;
+			op[k].x = cos(deg * i)* r;
+			op[k].y = sin(deg * i)* r;
+			op[k].z = z;// 1.0f - 2.0f / (numrings - 1) * j;
 		}
 	}
 	//変更後の頂点位置の入れ物
@@ -60,11 +60,19 @@ void gmain() {
 			p[i].y /= p[i].z;
 		}
 		clear(200);
-		mathAxis(1.2);
+		mathAxis(0.8);
 		stroke(0, 0, 200);
-		strokeWeight(10);
 		for (int i = 0; i < num; i++) {
-			mathPoint(p[i].x, p[i].y);
+			//strokeWeight(5);
+			//mathPoint(p[i].x, p[i].y);
+			int j = i + 1;
+			if (j % numcorners == 0)j -= numcorners;
+			strokeWeight(3);
+			mathLine(p[i].x, p[i].y, p[j].x, p[j].y);
+			if (i < num - numcorners) {
+				j = numcorners + i;
+			}
+			mathLine(p[i].x, p[i].y, p[j].x, p[j].y);
 
 		}
 	}
