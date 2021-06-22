@@ -1,4 +1,133 @@
-#define _三角関数_10
+#define _ベクトル_04
+
+#ifdef _ベクトル_04
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	float rx = 5;
+	float bx = 9;
+	while (notQuit) {
+		float vx = rx - bx;//終点 - 始点
+		//float vx = mathMouseX;
+		float mag = vx < 0 ? -vx : vx;//三項演算子
+		float nvx = vx / mag;
+		bx += nvx * 0.01f;
+		clear(200);
+		mathAxis(9.1f);
+
+		strokeWeight(5);
+		stroke(255, 0, 0);
+		mathArrow(0, 0, vx, 0);
+		stroke(0, 0, 255);
+		mathArrow(0, 0, nvx, 0);//正規化 
+
+		strokeWeight(20);
+		stroke(255, 0, 0);
+		mathPoint(rx, 0);
+		stroke(0, 0, 255);
+		mathPoint(bx, 0);
+
+		textSize(50);
+		text(vx, 0, 50);
+		text(mag, 0, 100);
+	}
+}
+#endif
+
+
+#ifdef _ベクトル_03
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+		//float vx = -3;
+		float vx = mathMouseX;
+		float mag = vx < 0 ? -vx : vx;//三項演算子
+		float nvx = vx / mag;
+		clear(200);
+		mathAxis(5.1f);
+		strokeWeight(5);
+		stroke(0, 0, 255);
+		mathArrow(0, 0, vx, 0);
+		stroke(255, 0, 0);
+		mathArrow(0, 0, nvx, 0);//正規化
+		textSize(50);
+		text(vx, 0, 50);
+		text(mag, 0, 100);
+	}
+}
+#endif
+#ifdef _ベクトル_02
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+		float vx = -3;
+		float mag = vx < 0 ? -vx : vx;//三項演算子
+		//if (vx < 0) { mag = -vx; }
+		//else mag = vx;
+		clear(200);
+		mathAxis(5.1f);
+		strokeWeight(5);
+		stroke(0, 0, 255);
+		mathArrow(0, 0, vx, 0);
+		textSize(50);
+		text(vx, 0, 50);
+		text(mag, 0, 100);
+	}
+}
+#endif
+#ifdef _ベクトル_01
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+		float vx = -3;
+		clear(200);
+		mathAxis(5.1f);
+		strokeWeight(5);
+		stroke(0, 0, 255);
+		mathArrow(0, 0, vx, 0);//始点が0,0の場合、原点が始点となる
+	}
+}
+
+#endif
+#ifdef _三角関数_11
+#include"libOne.h"
+void gmain() {
+	window(1920, 1080,full);
+	struct POS{
+		float x, y, z;
+	};
+	const int num = 1000;
+	struct POS p[num];
+	for (int i = 0; i < num; i++) {
+		p[i].x = random(-1.0f, 1.0f);
+		p[i].y = random(-0.5f, 0.5f);
+		p[i].z = random(0.0f, 1.0f);
+
+	}
+	while (notQuit) {
+		for (int i = 0; i < num; i++) {
+			p[i].z -= 0.01f;
+			if (p[i].z <= 0.0f) {//z軸が0になったら1に戻す
+				p[i].z = 1.0f;
+			}
+		}
+		fill(0, 0, 0, 80);
+		strokeWeight(0);
+		rect(0, 0, width, height);
+		mathAxis(1.0f);
+		for (int i = 0; i < num; i++) {
+			stroke(255);
+			float size = (1.0f - p[i].z) * 20.0f;
+			strokeWeight(size);
+			mathPoint(p[i].x/ p[i].z, p[i].y/ p[i].z);
+			//mathPoint( p[i].z, p[i].y / p[i].z);//反比例
+		}
+	}
+}
+#endif
 #ifdef _三角関数_10
 #include"libOne.h"
 //頂点位置の構造体
