@@ -1,5 +1,71 @@
-#define _ベクトル_04
+#define _ベクトル_06
 
+#ifdef _ベクトル_06
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+		float vx = mathMouseX;
+		float vy = mathMouseY;
+		float mag = sqrt(vx * vx + vy * vy);
+		//float nmag = mag / mag;
+		float nvx = vx / mag;
+		clear(200);
+		mathAxis(6.1f);
+
+		strokeWeight(5);
+		stroke(255, 0, 0);
+		mathLine(0, 0, vx, 0);
+
+		stroke(0, 0, 255);
+		mathLine(vx, 0, vx, vy);
+
+		stroke(0, 255, 0);
+		mathArrow(0, 0, vx, vy);
+
+		//stroke(0);
+		//mathArrow(0, 0, mag, mag);
+
+		textSize(50);
+		text((let)"vec(" + vx + "," + vy + ")", 0, 50);
+		text((let)"vx = " + vx, 0, 100);
+		text((let)"vy = " + vy, 0, 150);
+		text((let)"mag = " + mag, 0, 200);
+		//text((let)"nmag = " + nmag, 0, 250);
+	}
+}
+#endif
+
+
+#ifdef _ベクトル_05
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+		float vx = mathMouseX;
+		float vy = mathMouseY;
+		float mag = sqrt(vx * vx + vy * vy);
+		clear(200);
+		mathAxis(6.1f);
+
+		strokeWeight(5);
+		stroke(255, 0, 0);
+		mathLine(0, 0, vx, 0);
+
+		stroke(0, 0, 255);
+		mathLine(vx, 0, vx, vy);
+
+		stroke(0, 255, 0);
+		mathArrow(0, 0, vx, vy);
+
+		textSize(50);
+		text((let)"vec(" + vx + "," + vy + ")", 0, 50);
+		text((let)"vx = " + vx, 0, 100);
+		text((let)"vy = " + vy, 0, 150);
+		text((let)"mag = "+mag, 0, 200);
+	}
+}
+#endif
 #ifdef _ベクトル_04
 #include<libOne.h>
 void gmain() {
@@ -33,8 +99,6 @@ void gmain() {
 	}
 }
 #endif
-
-
 #ifdef _ベクトル_03
 #include<libOne.h>
 void gmain() {
