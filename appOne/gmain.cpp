@@ -1,4 +1,61 @@
-#define _ベクトル_06
+#define _ベクトル_07
+
+#ifdef _ベクトル_07
+#include<libOne.h>
+void gmain() {
+	window(1000, 1000);
+	float rx = 5, ry = 5;
+	float bx = 7, by = 7;
+	while (notQuit) {
+		bx = mathMouseX;
+		by = mathMouseY;
+		float vx = bx - rx;
+		float vy = by - ry;
+		float mag = sqrt(vx * vx + vy * vy);
+		//float nmag = mag / mag;
+		float nvx = vx / mag;
+		float nvy = vy / mag;
+		float nmag = sqrt(nvx * nvx + nvy * nvy);
+		rx += nvx * 0.1f;
+		ry += nvy * 0.1f;
+
+
+		clear(200);
+		mathAxis(9.1f);
+		strokeWeight(5);
+
+		stroke(255, 0, 0);
+		mathLine(0, 0, vx, 0);
+
+		stroke(0, 0, 255);
+	    mathLine(vx, 0, vx, vy);
+
+		stroke(0, 255, 0);
+		mathArrow(0, 0, vx, vy);
+
+		stroke(0);
+		mathLine(0, 0, nvx, 0);//正規化されたx
+
+		mathLine(nvx, 0, nvx, nvy);//正規化されたy
+
+		mathArrow(0, 0, nvx, nvy);//正規化されたベクトル
+
+		strokeWeight(20);
+		stroke(255,0,0);
+		mathPoint(rx, ry);
+
+		stroke(0,0,255);
+		mathPoint(bx, by);
+		
+		textSize(50);
+		text((let)"vec(" + vx + "," + vy + ")", 0, 50);
+		text((let)"mag = " + mag, 0, 100);
+		text((let)"nvec(" + nvx + "," + nvy + ")", 0, 150);
+		text((let)"nmag = " + nmag, 0, 200);
+	}
+}
+#endif
+
 
 #ifdef _ベクトル_06
 #include<libOne.h>
@@ -10,6 +67,8 @@ void gmain() {
 		float mag = sqrt(vx * vx + vy * vy);
 		//float nmag = mag / mag;
 		float nvx = vx / mag;
+		float nvy = vy / mag;
+		//float nmag = sqrt(nvx * nvx + nvy * nvy);
 		clear(200);
 		mathAxis(6.1f);
 
@@ -23,6 +82,15 @@ void gmain() {
 		stroke(0, 255, 0);
 		mathArrow(0, 0, vx, vy);
 
+		stroke(0);
+		mathLine(0, 0, nvx, 0);//正規化されたx
+
+		stroke(0);
+		mathLine(nvx, 0, nvx, nvy);//正規化されたy
+
+		stroke(0);
+		mathArrow(0, 0, nvx, nvy);//正規化されたベクトル
+
 		//stroke(0);
 		//mathArrow(0, 0, mag, mag);
 
@@ -31,12 +99,13 @@ void gmain() {
 		text((let)"vx = " + vx, 0, 100);
 		text((let)"vy = " + vy, 0, 150);
 		text((let)"mag = " + mag, 0, 200);
+		text((let)"nvec(" + nvx + "," + nvy + ")", 0, 250);
+		text((let)"nvx = " + nvx, 0, 300);
+		text((let)"nvy = " + nvy, 0, 350);
 		//text((let)"nmag = " + nmag, 0, 250);
 	}
 }
 #endif
-
-
 #ifdef _ベクトル_05
 #include<libOne.h>
 void gmain() {
