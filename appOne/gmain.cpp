@@ -1,4 +1,17 @@
-#define _ベクトル_07
+#define _ベクトル_10
+
+#ifdef _ベクトル_10
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+		clear(100);
+		mathAxis(3.1f);
+	}
+}
+#endif
+
+
 
 #ifdef _ベクトル_07
 #include<libOne.h>
