@@ -1,17 +1,104 @@
-#define _ベクトル_10
+#define _ベクトル_12
 
-#ifdef _ベクトル_10
+
+#ifdef _ベクトル_12
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
+	angleMode(DEGREES);
+	float x, y, angle;
 	while (notQuit) {
-		clear(100);
-		mathAxis(3.1f);
+		clear(0, 50, 0);
+		mathAxis(5.1f, 255);
+
+		x = mathMouseX;
+		y = mathMouseY;
+		angle = atan2(y, x);//?
+
+		strokeWeight(5);
+		stroke(128);
+		mathArrow(0, 0, x, y);
+		mathArc(0, angle, 0.5f);
+		textSize(50);
+		fill(160);
+		text((let)"x=" + x, 0, 50);
+		text((let)"y=" + y, 0, 100);
+		fill(100,100,200);
+		text((let)"atan2 = (y,x)" + angle, 0, 150);
+
+		float r = sqrt(x * x + y * y);
+		fill(160);
+		text((let)"asin = (y/r)" + asin(y / r), 0, 200);
+		text((let)"acos = (x/r)" + acos(x / r), 0, 250);
+		text((let)"atan = (y/x)" + atan(y / x), 0, 300);
 	}
 }
 #endif
 
 
+#ifdef _ベクトル_11
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	float x, y, r;
+	float s, c, t;
+	float tx, ty;
+	while (notQuit) {
+		clear(0, 50, 0);
+		mathAxis(3.1f, 255);
+		x = mathMouseX;
+		y = mathMouseY;
+		r = sqrt(x * x + y * y);//三平方の定理
+		c = x / r;
+		s = y / r;
+		t = y / x;
+		tx = s * t;
+		ty = -c * t;
+		strokeWeight(5);
+		mathArrow(0, 0, x, y);//斜辺
+		fill(0, 0, 0, 0);//四番目は透明度
+		mathCircle(0, 0, 2);  //単位円
+		stroke(0, 0, 255);
+		//正規化ベクトル
+		mathArrow(0, 0, c, s);//正規化された斜辺
+		stroke(0, 255, 0);
+		mathLine(0, 0, c, 0);//cosθ
+		stroke(255, 0, 0);
+		mathLine(c, 0, c, s);//sinθ
+		stroke(255, 0, 255);
+		mathArrow(c, s, c + tx, s + ty);//tanθ
+	}
+}
+#endif
+
+#ifdef _ベクトル_10
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	float x, y, r;
+	float s, c;
+	while (notQuit) {
+		clear(0,50,0);
+		mathAxis(3.1f,255);
+		x = mathMouseX;
+		y = mathMouseY;
+		r = sqrt(x * x + y * y);//三平方の定理
+		c = x / r;
+		s =	y / r;
+		strokeWeight(5);
+		mathArrow(0, 0, x, y);
+		fill(0, 0, 0, 0);//四番目は透明度
+		mathCircle(0, 0, 2);  //単位円
+		stroke(0,0,255);
+		//正規化ベクトル
+		mathArrow(0, 0, c, s);
+		stroke(0, 255, 0);
+		mathLine(0, 0, c, 0);
+		stroke(255, 0, 0);
+		mathLine(c, 0, c, s);
+	}
+}
+#endif
 
 #ifdef _ベクトル_07
 #include<libOne.h>
@@ -69,7 +156,6 @@ void gmain() {
 }
 #endif
 
-
 #ifdef _ベクトル_06
 #include<libOne.h>
 void gmain() {
@@ -119,6 +205,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _ベクトル_05
 #include<libOne.h>
 void gmain() {
@@ -148,6 +235,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _ベクトル_04
 #include<libOne.h>
 void gmain() {
@@ -181,6 +269,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _ベクトル_03
 #include<libOne.h>
 void gmain() {
@@ -203,6 +292,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _ベクトル_02
 #include<libOne.h>
 void gmain() {
@@ -223,6 +313,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _ベクトル_01
 #include<libOne.h>
 void gmain() {
@@ -238,6 +329,7 @@ void gmain() {
 }
 
 #endif
+
 #ifdef _三角関数_11
 #include"libOne.h"
 void gmain() {
@@ -274,6 +366,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _三角関数_10
 #include"libOne.h"
 //頂点位置の構造体
@@ -356,6 +449,7 @@ void gmain() {
 }
 
 #endif
+
 #ifdef _三角関数_09//立方体
 #include"libOne.h"
 //頂点位置の構造体
@@ -430,13 +524,14 @@ void gmain(){
 	}
 }
 #endif
+
 #ifdef _三角関数_08//リサージュ曲線もどき
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
 	let x, y, deg = 0;
-	float ax = 7;//xの振幅数
-	float by = 15;//yの振幅数
+	float ax = 2;//xの振幅数
+	float by = 3;//yの振幅数
 	angleMode(DEGREES);
 	while (notQuit) {
 		//if (deg > 360) {
@@ -457,6 +552,7 @@ void gmain() {
 }
 
 #endif
+
 #ifdef _三角関数_07//ハート
 #include"libOne.h"
 int createtriangle() {
@@ -527,6 +623,7 @@ void gmain() {
 }
 
 #endif
+
 #ifdef _三角関数_06
 #include"libOne.h"
 int createtriangle() {
@@ -579,6 +676,7 @@ void gmain() {
 }
 
 #endif
+
 #ifdef _三角関数_05//多角形
 #include"libOne.h"
 int createtriangle() {
@@ -618,6 +716,7 @@ void gmain() {
 }
 
 #endif
+
 #ifdef _三角関数_04//三角形
 #include"libOne.h"
 int createtriangle() {
@@ -644,6 +743,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _三角関数_03_時計
 #include"libOne.h"
 #include<time.h>
@@ -686,6 +786,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _三角関数_02//sin,cosの特徴
 #include"libOne.h"
 void gmain() {
@@ -709,6 +810,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _三角関数_01
 #include"libOne.h"
 void gmain() {
@@ -743,6 +845,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _円の当たり判定
 #include"libOne.h"
 void gmain() {
@@ -779,6 +882,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _三平方の定理
 #include"libOne.h"
 void gmain() {
@@ -805,6 +909,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _ルート
 #include"libOne.h"
 void gmain() {
@@ -831,6 +936,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _15_HSV
 #include"libOne.h"
 void gmain() {
@@ -870,6 +976,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _14_SORT
 #include"libOne.h"
 void gmain() {
@@ -905,6 +1012,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _13_弾
 #include"libOne.h"
 void gmain() {
@@ -972,6 +1080,7 @@ void gmain() {
 
 
 #endif
+
 #ifdef _10_FACE
 #include"libOne.h"
 void roundface(float px, float py) {
@@ -1030,6 +1139,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _09_HP
 //hpゲージ
 #include"libOne.h"
@@ -1073,6 +1183,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _08_LIFE
 #include"libOne.h"
 void gmain() {
@@ -1111,6 +1222,7 @@ void gmain() {
 	}
 }
 #endif
+
 #ifdef _07_図形
 #include"libOne.h"
 void gmain() {
