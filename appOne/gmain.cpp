@@ -1,4 +1,50 @@
-#define _ベクトル_12
+#define _ベクトル_14
+
+
+#ifdef _ベクトル_14
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	while (notQuit) {
+	}
+}
+#endif
+
+#ifdef _ベクトル_13
+#include"libOne.h"
+void gmain() {
+	window(1000, 1000);
+	angleMode(DEGREES);
+	float x, y, angle;
+	while (notQuit) {
+		clear(0, 50, 0);
+		mathAxis(5.1f, 255);
+
+		x = mathMouseX;
+		y = mathMouseY;
+		angle = atan2(y, x);
+
+		strokeWeight(5);
+		stroke(128);
+		mathArrow(0, 0, x, y);
+		mathArc(0, angle, 0.5f);
+		textSize(50);
+		fill(160);
+		text((let)"x=" + x, 0, 50);
+		text((let)"y=" + y, 0, 100);
+		fill(100, 100, 200);
+
+		text((let)"atan2 = (y,x)" + angle, 0, 150);
+
+		float r = sqrt(x * x + y * y);
+		fill(160);
+		text((let)"asin = (y/r)" + asin(y / r), 0, 200);//asinは高さから角度を求める
+		text((let)"acos = (x/r)" + acos(x / r), 0, 250);
+		text((let)"atan = (y/x)" + atan(y / x), 0, 300);
+	}
+}
+#endif
+
 
 
 #ifdef _ベクトル_12
@@ -24,17 +70,17 @@ void gmain() {
 		text((let)"x=" + x, 0, 50);
 		text((let)"y=" + y, 0, 100);
 		fill(100,100,200);
+
 		text((let)"atan2 = (y,x)" + angle, 0, 150);
 
 		float r = sqrt(x * x + y * y);
 		fill(160);
-		text((let)"asin = (y/r)" + asin(y / r), 0, 200);
+		text((let)"asin = (y/r)" + asin(y / r), 0, 200);//asinは高さから角度を求める
 		text((let)"acos = (x/r)" + acos(x / r), 0, 250);
 		text((let)"atan = (y/x)" + atan(y / x), 0, 300);
 	}
 }
 #endif
-
 
 #ifdef _ベクトル_11
 #include"libOne.h"
