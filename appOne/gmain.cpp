@@ -5,7 +5,31 @@
 #include"libOne.h"
 void gmain() {
 	window(1000, 1000);
+	angleMode(DEGREES);
+	float ax, ay, aAngle = -15;
+	float bx, by, bAngle = 30;
+	float incDec = 15;//増減値
+	float ip;//内積…dot product(ドットプロダクト)    a・bが・(ドット)だから
+	float cp;//外積…Cross product(クロスプロダクト)  a×bが×（クロスだから
+
 	while (notQuit) {
+		clear(0, 50, 0);
+		mathAxis(1.5f, 255);
+	    
+		ax = cos(aAngle);
+		ay = sin(aAngle);
+		if (isTrigger(KEY_A))aAngle += incDec;//Aを押すとaが15度ずつ回転
+		if (isTrigger(KEY_D))aAngle -= incDec;//Dを押すとaが15度ずつ回転
+
+		bx = cos(bAngle);
+		by = sin(bAngle);
+		if (isTrigger(KEY_LEFT))bAngle += incDec;//左矢印を押すとaが15度ずつ回転
+		if (isTrigger(KEY_RIGHT))bAngle -= incDec;//右矢印を押すとaが15度ずつ回転
+
+		strokeWeight(5);
+		mathArrow(0, 0, ax, ay);
+		stroke(100);
+		mathArrow(0, 0, bx, by);
 	}
 }
 #endif
@@ -44,8 +68,6 @@ void gmain() {
 	}
 }
 #endif
-
-
 
 #ifdef _ベクトル_12
 #include"libOne.h"
