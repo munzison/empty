@@ -9,13 +9,14 @@ void gmain() {
 	float ax, ay, aAngle = -15;
 	float bx, by, bAngle = 30;
 	float incDec = 15;//増減値
-	float ip;//内積…dot product(ドットプロダクト)    a・bが・(ドット)だから
-	float cp;//外積…Cross product(クロスプロダクト)  a×bが×（クロスだから
+	float dp;//内積…dot product(ドットプロダクト)    a・bが・(ドット)だから
+	float cp;//外積…Cross product(クロスプロダクト)  a×bが×（クロス）だから
+	float angleBitween;//なす角
 
 	while (notQuit) {
 		clear(0, 50, 0);
 		mathAxis(1.5f, 255);
-	    
+
 		ax = cos(aAngle);
 		ay = sin(aAngle);
 		if (isTrigger(KEY_A))aAngle += incDec;//Aを押すとaが15度ずつ回転
@@ -26,10 +27,27 @@ void gmain() {
 		if (isTrigger(KEY_LEFT))bAngle += incDec;//左矢印を押すとaが15度ずつ回転
 		if (isTrigger(KEY_RIGHT))bAngle -= incDec;//右矢印を押すとaが15度ずつ回転
 
+		dp = ax * bx + ay * by;
+		cp = ax * by - ay * bx;
+		angleBitween = atan2(cp, dp);
+
 		strokeWeight(5);
 		mathArrow(0, 0, ax, ay);
 		stroke(100);
 		mathArrow(0, 0, bx, by);
+
+		float cx = ax * dp;
+		float cy = ay * dp;
+		stroke(110, 110, 200);
+		mathLine(0, 0, cx, cy);
+
+		//90度回転させる
+		float dx = -ay * cp;
+		float dy = ax * cp;
+		stroke(200, 110, 110);
+		mathLine(cx, cy, cx + dx, cy + dy);
+
+		mathArc(aAngle, angleBitween, 0.1f);//弧
 	}
 }
 #endif
