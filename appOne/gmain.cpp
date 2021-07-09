@@ -27,6 +27,11 @@ void gmain() {
 		if (isTrigger(KEY_LEFT))bAngle += incDec;//左矢印を押すとaが15度ずつ回転
 		if (isTrigger(KEY_RIGHT))bAngle -= incDec;//右矢印を押すとaが15度ずつ回転
 
+		if (isPress(MOUSE_LBUTTON)) {
+			bx = mathMouseX;
+			by = mathMouseY;
+		}
+
 		dp = ax * bx + ay * by;
 		cp = ax * by - ay * bx;
 		angleBitween = atan2(cp, dp);
@@ -47,7 +52,16 @@ void gmain() {
 		stroke(200, 110, 110);
 		mathLine(cx, cy, cx + dx, cy + dy);
 
+		stroke(110, 200, 200);
 		mathArc(aAngle, angleBitween, 0.1f);//弧
+
+		textSize(50);
+		fill(110, 110, 200);
+		text((let)"内積 = ax+bx*ay+by = " + dp, 0, 50);
+		fill(200, 110, 110);
+		text((let)"外積 = ax*by-ay*bx = " + cp, 0, 100);
+		fill(110, 200, 200);
+		text((let)"弧 = atan2(cross,dot) = " + round(angleBitween), 0, 150);//rondo関数…四捨五入する
 	}
 }
 #endif
